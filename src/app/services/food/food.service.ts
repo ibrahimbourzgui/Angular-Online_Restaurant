@@ -5,12 +5,18 @@ import { Tag } from 'src/app/shared/models/Tag';
   providedIn: 'root'
 })
 export class FoodService {
+
+  getFoodById(id: number): Food
+  {
+    // the ! symbol to make sure that this return will note return an undifined
+    return this.getAll().find(food => food.id == id)!;
+  }
   getAllFoodBySearchTerm(searchTerm: string): Food[] {
     return this.getAll()
-    .filter(food => food.name.toLocaleLowerCase()
-    .includes(searchTerm.toLocaleLowerCase()));
+      .filter(food => food.name.toLocaleLowerCase()
+        .includes(searchTerm.toLocaleLowerCase()));
   }
-  
+
   constructor() { }
   getAllTags(): Tag[] {
     return [
@@ -25,8 +31,8 @@ export class FoodService {
     ];
   }
   getAllFoodsByTag(tag: string): Food[] {
-    return tag=="All" ?this.getAll() 
-    : this.getAll().filter(food => food.tags?.includes(tag));
+    return tag == "All" ? this.getAll()
+      : this.getAll().filter(food => food.tags?.includes(tag));
     /*if(tag=="All"){
       return this.getAll();
     }
@@ -34,8 +40,8 @@ export class FoodService {
     return this.getAll().filter(food => food.tags?.includes(tag))*/
   }
 
-  getAll():Food[]{
-    return[
+  getAll(): Food[] {
+    return [
       {
         id: 1,
         name: 'Pizza Pepperoni',
